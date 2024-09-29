@@ -1,16 +1,40 @@
-# state_management_provider
+State Management with Provider
+This project uses the Provider package for state management, which simplifies the way state is
+passed and shared across the app.
 
-A new Flutter project.
+1. ChangeNotifier
+   ChangeNotifier is a simple class in Flutter that provides change notifications to its listeners.
+   It is commonly used for managing state in a lightweight manner. Whenever there’s a change in the
+   state, ChangeNotifier notifies its listeners, triggering a rebuild of the relevant parts of the
+   UI.
 
-## Getting Started
+2. ChangeNotifierProvider
+   ChangeNotifierProvider is the most common way to provide a ChangeNotifier to the widget tree. It
+   listens to the ChangeNotifier and ensures that all consumers are rebuilt when there is a state
+   change.
 
-This project is a starting point for a Flutter application.
+Example:
 
-A few resources to get you started if this is your first Flutter project:
+ChangeNotifierProvider(
+create: (context) => MyChangeNotifier(),
+child: MyApp(),
+);
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+3. Consumer
+   The Consumer widget allows you to listen to the state changes provided by ChangeNotifierProvider
+   and rebuild only the part of the UI that depends on the state.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Example:
+
+Consumer<MyChangeNotifier>(
+builder: (context, notifier, child) {
+return Text('Value: ${notifier.value}');
+},
+);
+Summary of Provider
+Provider is a wrapper around the InheritedWidget in Flutter, making it easy to propagate data
+through the widget tree. It allows for a clean architecture where business logic and UI are
+separated, making the app more maintainable and testable. By using ChangeNotifier,
+ChangeNotifierProvider, and Consumer, you can efficiently manage and respond to state changes in
+your Flutter app.
+
